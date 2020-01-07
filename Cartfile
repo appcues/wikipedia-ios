@@ -3,6 +3,7 @@ github "CocoaLumberjack/CocoaLumberjack" ~> 3.4.2
 github "wikimedia/NYTPhotoViewer" "wmf"
 github "wikimedia/hpple" "master"
 github "wikimedia/Tweaks" "master"
+binary "https://raw.githubusercontent.com/appcues/ios-sdk-releases/master/Appcues.framework.json"
 
 github "jonreid/OCMockito" ~> 4.0
 github "hamcrest/OCHamcrest" ~> 6.0

@@ -1,3 +1,4 @@
+binary "https://raw.githubusercontent.com/appcues/ios-sdk-releases/master/Appcues.framework.json" "0.19.2"
 github "CocoaLumberjack/CocoaLumberjack" "3.6.0"
 github "Flipboard/FLAnimatedImage" "1.0.14"
 github "Mantle/Mantle" "2.1.0"

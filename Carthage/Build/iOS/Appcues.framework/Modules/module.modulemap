@@ -1,0 +1,6 @@
+framework module Appcues {
+  umbrella header "Appcues.h"
+
+  export *
+  module * { export * }
+}

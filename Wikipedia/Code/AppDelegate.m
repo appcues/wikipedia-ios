@@ -6,6 +6,7 @@
 #import "UIApplicationShortcutItem+WMFShortcutItem.h"
 #import "Wikipedia-Swift.h"
 #import "WMFQuoteMacros.h"
+@import Appcues;
 
 static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
 
@@ -90,6 +91,15 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
 
     [self updateDynamicIconShortcutItems];
 
+    [Appcues.shared setup];
+    
+    NSString *userId = @"appcues---tester";
+    NSDictionary *customProperties = @{ @"name": @"Appcues Tester", @"email": @"appcues@tester.com" };
+    AppcuesUserProfileUpdate *userProfileUpdate = [[AppcuesUserProfileUpdate alloc] initWithCustomProperties: customProperties];
+
+    [Appcues.shared identifyUserWithId: userId];
+    [Appcues.shared recordUserProfileUpdate: userProfileUpdate];
+    
     return YES;
 }
 
@@ -165,6 +175,7 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
             openURL:(NSURL *)url
             options:(NSDictionary<NSString *, id> *)options {
     NSUserActivity *activity = [NSUserActivity wmf_activityForWikipediaScheme:url] ?: [NSUserActivity wmf_activityForURL:url];
+    BOOL appcuesHandlesTheURL = [Appcues.shared application:app openURL:url options:options];
     if (activity) {
         [self.appViewController showSplashViewIfNotShowing];
         BOOL result = [self.appViewController processUserActivity:activity
@@ -176,7 +187,7 @@ static NSTimeInterval const WMFBackgroundFetchInterval = 10800; // 3 Hours
                                                                [self.appViewController hideSplashViewAnimated:YES];
                                                            }
                                                        }];
-        return result;
+        return result || appcuesHandlesTheURL;
     } else {
         [self resumeAppIfNecessary];
         return NO;

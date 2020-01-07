@@ -1,5 +1,6 @@
 import UIKit
 import WMF
+import Appcues
 
 class ViewController: PreviewingViewController, NavigationBarHiderDelegate {    
     init() {
@@ -135,6 +136,12 @@ class ViewController: PreviewingViewController, NavigationBarHiderDelegate {
     
     deinit {
         NotificationCenter.default.removeObserver(self)
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+      super.viewDidAppear(animated)
+
+      Appcues.shared.sendActivities()
     }
     
     override func viewDidLoad() {
